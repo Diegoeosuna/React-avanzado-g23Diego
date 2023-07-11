@@ -7,10 +7,12 @@
 
 import { useState } from "react"
 
-function useForm (defaults) {
+function useForm (callback, defaults) {
     const [input, setInput] = useState(defaults)
+
     const handleInputChange = (event) => {
-        const [name, value] = event.target
+        const {name, value} = event.target
+
         setInput({ ... input, [name]: value })
     }
 
