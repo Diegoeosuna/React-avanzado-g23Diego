@@ -1,31 +1,34 @@
-import { useEffect, useState } from 'react'
-import canciones from '@/assets/listaCanciones.json'
+import { useSongContext } from '@/hooks/useSongContext'
 import './songlist.css'
 
-
 const SongList = () => {
-    const [list, setList] = useState([])
-    const [loading, setLoading] = useState(true)
-
-useEffect(() => {
-    setTimeout(() => {
-        setList(canciones)
-        setLoading(false)
-    }, 2000)
-}, [])
-
+    const {list, loading, setSelectedSong, search} = useSongContext()
     return (
     <section>
         {loading
         ? <h1>Cargando...</h1>
-        : list.map((song) => (
-            <div key={song.id} className='row-song'>
-                <h4>{song.title}</h4>
-                <p>{song.artist}</p>
+        : list.filter((song) => { 
+            if (search === '') {
+                return song
+            } else if (song.title.toLowerCase().includes(search.toLowerCase())) {
+                return song
+            }
+            return null
+        }
+        ).map((song) => (
+            <div 
+            className='row-song' 
+            key={song.id} 
+            onClick={() => setSelectedSong(song)}
+            >
+            <h4>{song.title}</h4>
+            <p>{song.artist}</p>
             </div>
-        ))}
+        )
+    
+        )
+    }
     </section>
     )
 }
-
 export default SongList
