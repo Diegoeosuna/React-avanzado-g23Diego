@@ -1,0 +1,39 @@
+$menu-color:black;
+
+@mixin header-link{
+    color: $menu-color;
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+
+    .header{
+        background-color: floralwhite;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 30px;
+
+        &__logo{
+            @include header-link()
+        }
+
+        &__nav-list{
+            display: flex;
+            list-style: none;
+            column-gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        &__item-link{
+            @include header-link();
+
+            &--is-active{
+                border-bottom: solid 2px;
+            }
+
+            &:hover{
+                border-bottom: solid 1px $menu-color;
+            }
+        }
+
+    }
